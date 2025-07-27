@@ -1,6 +1,7 @@
 // Build the Nix args out of inputs from the Actions environment
 export function makeNixCommandArgs(
   nixOptions: string[],
+  flake: string | null,
   flakeInputs: string[],
   commitMessage: string | null,
 ): string[] {
@@ -15,6 +16,7 @@ export function makeNixCommandArgs(
     : [];
 
   return nixOptions
+    .concat(flake ? ["--flake", flake] : [])
     .concat(["flake", "update"])
     .concat(flakeInputs)
     .concat(["--commit-lock-file"])

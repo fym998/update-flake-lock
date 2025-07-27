@@ -5,6 +5,10 @@ inputs:
     description: "A space-separated list of inputs to update. Leave empty to update all inputs."
     required: false
     default: ""
+  flakes:
+    description: "Flakes to update, one per line. If not provided, the action will look for a `flake.nix` file in the root of the repository."
+    required: false
+    default: ""
   token:
     description: "GITHUB_TOKEN or a `repo` scoped Personal Access Token (PAT)"
     required: false
@@ -20,7 +24,7 @@ inputs:
     required: false
     default: "update_flake_lock_action"
   path-to-flake-dir:
-    description: "The path of the directory containing `flake.nix` file within your repository. Useful when `flake.nix` cannot reside at the root of your repository."
+    description: "(DEPRECATED, use `flakes` instead) The path of the directory containing `flake.nix` file within your repository. Useful when `flake.nix` cannot reside at the root of your repository."
     required: false
   pr-title:
     description: "The title of the PR to be created"
