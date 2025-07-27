@@ -50,7 +50,7 @@ class UpdateFlakeLockAction extends DetSysAction {
       actionsCore.debug(
         JSON.stringify({
           options: this.nixOptions,
-          flake: flake,
+          flake,
           inputs: this.flakeInputs,
           message: this.commitMessage,
           args: nixCommandArgs,
