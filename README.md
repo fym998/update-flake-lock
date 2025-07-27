@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/determinate-nix-action@v3
-      - uses: DeterminateSystems/update-flake-lock@main
+      - uses: fym998/update-flake-lock@main
         with:
           pr-title: "Update Nix flake inputs" # Title of PR to be created
           pr-labels: |                  # Labels to be set on the PR
@@ -56,7 +56,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           flakes: |
             flake-1/
@@ -87,7 +87,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           inputs: input1 input2 input3
 ```
@@ -112,7 +112,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           nix-options: --debug --log-format raw
 ```
@@ -136,7 +136,7 @@ jobs:
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
         id: update
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           inputs: input1 input2 input3
       - name: Print PR number
@@ -165,7 +165,7 @@ jobs:
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
         if: ${{ github.event_name != 'pull_request' }}
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           inputs: input1 input2 input3
           path-to-flake-dir: 'nix/' # in this example our flake doesn't sit at the root of the repository, it sits under 'nix/flake.nix'
@@ -191,7 +191,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           git-author-name: Jane Author
           git-author-email: github-actions[bot]@users.noreply.github.com
@@ -229,7 +229,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
 ```
@@ -268,7 +268,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           sign-commits: true
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
@@ -281,7 +281,7 @@ jobs:
 By default, the generated PR body uses this template:
 
 ````handlebars
-Automated changes by the [update-flake-lock](https://github.com/DeterminateSystems/update-flake-lock) GitHub Action.
+Automated changes by the [update-flake-lock](https://github.com/fym998/update-flake-lock) GitHub Action.
 
 ````
 {{ env.GIT_COMMIT_MESSAGE }}
@@ -333,7 +333,7 @@ jobs:
       - name: Install Determinate Nix
         uses: DeterminateSystems/determinate-nix-action@v3
       - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+        uses: fym998/update-flake-lock@main
         with:
           pr-assignees: SomeGitHubUsername
           pr-reviewers: SomeOtherGitHubUsername,SomeThirdGitHubUsername
