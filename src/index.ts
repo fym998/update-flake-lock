@@ -7,7 +7,7 @@ import { DetSysAction, inputs } from "detsys-ts";
 const EVENT_EXECUTION_FAILURE = "execution_failure";
 
 class UpdateFlakeLockAction extends DetSysAction {
-  private commitMessage: string;
+  private commitMessage: string | null;
   private nixOptions: string[];
   private flakeInputs: string[];
   private pathToFlakeDir: string | null;
@@ -19,7 +19,7 @@ class UpdateFlakeLockAction extends DetSysAction {
       requireNix: "fail",
     });
 
-    this.commitMessage = inputs.getString("commit-msg");
+    this.commitMessage = inputs.getStringOrNull("commit-msg");
     this.flakeInputs = inputs.getArrayOfStrings("inputs", "space");
     this.nixOptions = inputs.getArrayOfStrings("nix-options", "space");
     this.pathToFlakeDir = inputs.getStringOrNull("path-to-flake-dir");
@@ -34,10 +34,10 @@ class UpdateFlakeLockAction extends DetSysAction {
 
   async update(): Promise<void> {
     // Nix command of this form:
-    // nix ${maybe nix options} flake update ${maybe inputs} --commit-lock-file --commit-lockfile-summary ${commit message}
+    // nix ${maybe nix options} flake update ${maybe inputs} --commit-lock-file ${maybe --commit-lockfile-summary commit message}
     // Example commands:
     // nix --extra-substituters https://example.com flake update nixpkgs --commit-lock-file --commit-lockfile-summary "updated flake.lock"
-    // nix flake update --commit-lock-file --commit-lockfile-summary "updated flake.lock"
+    // nix flake update --commit-lock-file
     const nixCommandArgs: string[] = makeNixCommandArgs(
       this.nixOptions,
       this.flakeInputs,
