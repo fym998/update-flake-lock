@@ -4,6 +4,7 @@ import { expect, test } from "vitest";
 type TestCase = {
   inputs: {
     nixOptions: string[];
+    flake: string | null;
     flakeInputs: string[];
     commitMessage: string;
   };
@@ -15,6 +16,7 @@ test("Nix command arguments", () => {
     {
       inputs: {
         nixOptions: ["--log-format", "raw"],
+        flake: null,
         flakeInputs: [],
         commitMessage: "just testing",
       },
@@ -32,15 +34,14 @@ test("Nix command arguments", () => {
     {
       inputs: {
         nixOptions: [],
+        flake: null,
         flakeInputs: ["nixpkgs", "rust-overlay"],
         commitMessage: "just testing",
       },
       expected: [
         "flake",
-        "lock",
-        "--update-input",
+        "update",
         "nixpkgs",
-        "--update-input",
         "rust-overlay",
         "--commit-lock-file",
         "--option",
@@ -51,6 +52,7 @@ test("Nix command arguments", () => {
     {
       inputs: {
         nixOptions: ["--debug"],
+        flake: null,
         flakeInputs: [],
         commitMessage: "just testing",
       },
@@ -69,6 +71,7 @@ test("Nix command arguments", () => {
   testCases.forEach(({ inputs, expected }) => {
     const args = makeNixCommandArgs(
       inputs.nixOptions,
+      inputs.flake,
       inputs.flakeInputs,
       inputs.commitMessage,
     );
