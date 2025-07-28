@@ -91165,7 +91165,7 @@ function makeOptionsConfident(actionOptions) {
 // src/nix.ts
 function makeNixCommandArgs(nixOptions, flake, flakeInputs, commitMessage) {
   const lockfileSummaryFlags = commitMessage ? ["--option", "commit-lockfile-summary", commitMessage] : [];
-  return nixOptions.concat(flake ? ["--flake", flake] : []).concat(["flake", "update"]).concat(flakeInputs).concat(["--commit-lock-file"]).concat(lockfileSummaryFlags);
+  return nixOptions.concat(["flake", "update"]).concat(flake ? ["--flake", flake] : []).concat(flakeInputs).concat(["--commit-lock-file"]).concat(lockfileSummaryFlags);
 }
 
 // src/index.ts
