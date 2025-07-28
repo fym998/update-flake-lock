@@ -188,7 +188,7 @@ runs:
         %B\
 
         \`\`\`\
-        "${{ steps.pre-update.outputs.value }}..HEAD)
+        " ${{ steps.pre-update.outputs.value }}..HEAD)
         echo "GIT_COMMIT_MESSAGE<<$DELIMITER" >> $GITHUB_ENV
         echo "$COMMIT_MESSAGE" >> $GITHUB_ENV
         echo "$DELIMITER" >> $GITHUB_ENV
