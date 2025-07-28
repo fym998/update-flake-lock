@@ -1,7 +1,6 @@
 import { makeNixCommandArgs } from "./nix.js";
 import { expect, test } from "vitest";
 
-
 type TestCase = {
   inputs: {
     nixOptions: string[];
