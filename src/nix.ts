@@ -16,8 +16,8 @@ export function makeNixCommandArgs(
     : [];
 
   return nixOptions
-    .concat(flake ? ["--flake", flake] : [])
     .concat(["flake", "update"])
+    .concat(flake ? ["--flake", flake] : [])
     .concat(flakeInputs)
     .concat(["--commit-lock-file"])
     .concat(lockfileSummaryFlags);
