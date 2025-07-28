@@ -188,7 +188,8 @@ runs:
         echo "GIT_COMMIT_MESSAGE<<$DELIMITER" >> $GITHUB_ENV
         echo "$COMMIT_MESSAGE" >> $GITHUB_ENV
         echo "$DELIMITER" >> $GITHUB_ENV
-        echo "GIT_COMMIT_MESSAGE is: ${COMMIT_MESSAGE}"
+        echo "GIT_COMMIT_MESSAGE is:"
+        echo "${COMMIT_MESSAGE}"
     - name: Interpolate PR Body
       uses: pedrolamas/handlebars-action@2995d7eadacbc8f2f6ab8431a01d84a5fa3b8bb4 # v2.4.0
       with:
