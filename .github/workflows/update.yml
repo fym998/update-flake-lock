@@ -17,8 +17,3 @@ jobs:
       - uses: actions/checkout@v4
       - uses: DeterminateSystems/determinate-nix-action@v3
       - uses: fym998/update-flake-lock@main
-        with:
-          pr-title: "Update Nix flake inputs" # Title of PR to be created
-          pr-labels: | # Labels to be set on the PR
-            dependencies
-            automated
