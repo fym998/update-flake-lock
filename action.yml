@@ -185,9 +185,10 @@ runs:
       run: |
         DELIMITER=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
         COMMIT_MESSAGE=$(git log --pretty=format:"\`\`\`\
-        %B\
 
+        %B\
         \`\`\`\
+
         " ${{ steps.pre-update.outputs.value }}..HEAD)
         echo "GIT_COMMIT_MESSAGE<<$DELIMITER" >> $GITHUB_ENV
         echo "$COMMIT_MESSAGE" >> $GITHUB_ENV
