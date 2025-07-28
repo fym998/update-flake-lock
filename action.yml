@@ -29,7 +29,7 @@ inputs:
   pr-title:
     description: "The title of the PR to be created"
     required: false
-    default: "flake.lock: Update"
+    default: "Update Nix flake inputs"
   pr-body:
     description: "The body of the PR to be created"
     required: false
