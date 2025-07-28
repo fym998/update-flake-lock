@@ -1,18 +1,34 @@
 import { makeNixCommandArgs } from "./nix.js";
 import { expect, test } from "vitest";
 
+
 type TestCase = {
   inputs: {
     nixOptions: string[];
     flake: string | null;
     flakeInputs: string[];
-    commitMessage: string;
+    commitMessage: string | null;
   };
   expected: string[];
 };
 
 test("Nix command arguments", () => {
   const testCases: TestCase[] = [
+    {
+      inputs: {
+        nixOptions: [],
+        flake: "flake-url",
+        flakeInputs: [],
+        commitMessage: null,
+      },
+      expected: [
+        "flake",
+        "update",
+        "--flake",
+        "flake-url",
+        "--commit-lock-file",
+      ],
+    },
     {
       inputs: {
         nixOptions: ["--log-format", "raw"],
