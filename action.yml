@@ -47,7 +47,7 @@ inputs:
   pr-labels:
     description: "A comma or newline separated list of labels to set on the Pull Request to be created"
     required: false
-    default: ""
+    default: "dependencies, flake.lock, automated"
   pr-assignees:
     description: "A comma or newline separated list of assignees (GitHub usernames)."
     required: false
