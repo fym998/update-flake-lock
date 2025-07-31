@@ -16,22 +16,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeterminateSystems/update-flake-lock.git"
+    "url": "git+https://github.com/fym998/update-flake-lock.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DeterminateSystems/update-flake-lock/issues"
+    "url": "https://github.com/fym998/update-flake-lock/issues"
   },
-  "homepage": "https://github.com/DeterminateSystems/update-flake-lock#readme",
+  "homepage": "https://github.com/fym998/update-flake-lock#readme",
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/exec": "^1.1.1",
     "detsys-ts": "github:DeterminateSystems/detsys-ts"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@vercel/ncc": "^0.38.3",
     "eslint": "^8.57.1",
