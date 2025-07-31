@@ -24,17 +24,17 @@ inputs:
     required: false
     default: "update_flake_lock_action"
   path-to-flake-dir:
-    description: "The path of the directory containing `flake.nix` file within your repository. Useful when `flake.nix` cannot reside at the root of your repository."
+    description: "(DEPRECATED, use `flakes` instead) The path of the directory containing `flake.nix` file within your repository. Useful when `flake.nix` cannot reside at the root of your repository."
     required: false
   pr-title:
     description: "The title of the PR to be created"
     required: false
-    default: "flake.lock: Update"
+    default: "Update Nix flake inputs"
   pr-body:
     description: "The body of the PR to be created"
     required: false
     default: |
-      Automated changes by the [update-flake-lock](https://github.com/DeterminateSystems/update-flake-lock) GitHub Action.
+      Automated changes by the [update-flake-lock](https://github.com/fym998/update-flake-lock) GitHub Action.
 
       {{ env.GIT_COMMIT_MESSAGE }}
 
@@ -47,7 +47,7 @@ inputs:
   pr-labels:
     description: "A comma or newline separated list of labels to set on the Pull Request to be created"
     required: false
-    default: ""
+    default: "dependencies, nix, automated"
   pr-assignees:
     description: "A comma or newline separated list of assignees (GitHub usernames)."
     required: false
@@ -214,7 +214,7 @@ runs:
       run: rm -f pr_body.txt pr_body.template
     - name: Create PR
       id: create-pr
-      uses: peter-evans/create-pull-request@6d6857d36972b65feb161a90e484f2984215f83e # v6.0.5
+      uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
       with:
         base: ${{ inputs.base }}
         branch: ${{ inputs.branch }}
