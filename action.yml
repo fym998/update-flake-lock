@@ -34,7 +34,7 @@ inputs:
     description: "The body of the PR to be created"
     required: false
     default: |
-      Automated changes by the [update-flake-lock](https://github.com/DeterminateSystems/update-flake-lock) GitHub Action.
+      Automated changes by the [update-flake-lock](https://github.com/fym998/update-flake-lock/tree/dogfood) GitHub Action.
 
       {{ env.GIT_COMMIT_MESSAGE }}
 
