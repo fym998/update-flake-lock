@@ -1,2 +1,4 @@
 # JS dependencies
 node_modules/
+
+.direnv/
