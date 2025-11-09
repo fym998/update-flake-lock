@@ -95252,7 +95252,7 @@ function makeOptionsConfident(actionOptions) {
 ;// CONCATENATED MODULE: ./dist/index.js
 // src/nix.ts
 function makeNixCommandArgs(nixOptions, flake, flakeInputs, commitMessage) {
-  const lockfileSummaryFlags = commitMessage ? ["--option", "commit-lockfile-summary", commitMessage] : [];
+  const lockfileSummaryFlags = commitMessage !== null ? ["--option", "commit-lockfile-summary", commitMessage] : [];
   return nixOptions.concat(["flake", "update"]).concat(flake ? ["--flake", flake] : []).concat(flakeInputs).concat(["--commit-lock-file"]).concat(lockfileSummaryFlags);
 }
 
@@ -95262,6 +95262,11 @@ function makeNixCommandArgs(nixOptions, flake, flakeInputs, commitMessage) {
 
 var EVENT_EXECUTION_FAILURE = "execution_failure";
 var UpdateFlakeLockAction = class extends DetSysAction {
+  commitMessage;
+  commitMessagePerFlake;
+  nixOptions;
+  flakeInputs;
+  flakes;
   constructor() {
     super({
       name: "update-flake-lock",
@@ -95269,6 +95274,9 @@ var UpdateFlakeLockAction = class extends DetSysAction {
       requireNix: "fail"
     });
     this.commitMessage = inputs_exports.getStringOrNull("commit-msg");
+    this.commitMessagePerFlake = JSON.parse(
+      inputs_exports.getString("commit-msg-per-flake")
+    );
     this.flakeInputs = inputs_exports.getArrayOfStrings("inputs", "space");
     this.nixOptions = inputs_exports.getArrayOfStrings("nix-options", "space");
     this.flakes = core.getMultilineInput("flakes").concat(inputs_exports.getStringOrNull("path-to-flake-dir") ?? []);
@@ -95281,18 +95289,19 @@ var UpdateFlakeLockAction = class extends DetSysAction {
   }
   async update() {
     for (const flake of this.flakes.length > 0 ? this.flakes : [null]) {
+      const commitMessage = flake != null && Object.hasOwn(this.commitMessagePerFlake, flake) ? this.commitMessagePerFlake[flake] : this.commitMessage;
       const nixCommandArgs = makeNixCommandArgs(
         this.nixOptions,
         flake,
         this.flakeInputs,
-        this.commitMessage
+        commitMessage
       );
       core.debug(
         JSON.stringify({
           options: this.nixOptions,
           flake,
           inputs: this.flakeInputs,
-          message: this.commitMessage,
+          message: commitMessage,
           args: nixCommandArgs
         })
       );
