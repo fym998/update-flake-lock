@@ -158,6 +158,7 @@ runs:
         INPUT_BASE: ${{ inputs.base }}
         INPUT_BRANCH: ${{ inputs.branch }}
         INPUT_COMMIT-MSG: ${{ inputs.commit-msg }}
+        INPUT_COMMIT-MSG-PER-FLAKE: ${{ inputs.commit-msg-per-flake }}
         INPUT_FLAKES: ${{ inputs.flakes }}
         INPUT_GIT-AUTHOR-EMAIL: ${{ inputs.git-author-email }}
         INPUT_GIT-AUTHOR-NAME: ${{ inputs.git-author-name }}
