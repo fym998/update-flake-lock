@@ -14,8 +14,12 @@ inputs:
     required: false
     default: ${{ github.token }}
   commit-msg:
-    description: "The message provided with the commit"
+    description: "The message provided with the commit. If not provided, Nix's default message will be used."
     required: false
+  commit-msg-per-flake:
+    description: "The commit message for each flake, in JSON (`{<flake-uri>: <message>}`). For flakes not listed here, `commit-msg` will be used."
+    required: false
+    default: "{}"
   base:
     description: "Sets the pull request base branch. Defaults to the branch checked out in the workflow."
     required: false

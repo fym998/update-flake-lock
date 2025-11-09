@@ -7,6 +7,7 @@ const EVENT_EXECUTION_FAILURE = "execution_failure";
 
 class UpdateFlakeLockAction extends DetSysAction {
   private commitMessage: string | null;
+  private commitMessagePerFlake: Record<string, string>;
   private nixOptions: string[];
   private flakeInputs: string[];
   private flakes: string[];
@@ -19,6 +20,9 @@ class UpdateFlakeLockAction extends DetSysAction {
     });
 
     this.commitMessage = inputs.getStringOrNull("commit-msg");
+    this.commitMessagePerFlake = JSON.parse(
+      inputs.getString("commit-msg-per-flake"),
+    );
     this.flakeInputs = inputs.getArrayOfStrings("inputs", "space");
     this.nixOptions = inputs.getArrayOfStrings("nix-options", "space");
     this.flakes = actionsCore
@@ -35,6 +39,10 @@ class UpdateFlakeLockAction extends DetSysAction {
 
   async update(): Promise<void> {
     for (const flake of this.flakes.length > 0 ? this.flakes : [null]) {
+      const commitMessage =
+        flake != null && Object.hasOwn(this.commitMessagePerFlake, flake)
+          ? this.commitMessagePerFlake[flake]
+          : this.commitMessage;
       // Nix command of this form:
       // nix ${maybe nix options} flake update ${maybe --flake flake} ${maybe inputs} --commit-lock-file ${maybe --commit-lockfile-summary commit message}
       // Example commands:
@@ -44,7 +52,7 @@ class UpdateFlakeLockAction extends DetSysAction {
         this.nixOptions,
         flake,
         this.flakeInputs,
-        this.commitMessage,
+        commitMessage,
       );
 
       actionsCore.debug(
@@ -52,7 +60,7 @@ class UpdateFlakeLockAction extends DetSysAction {
           options: this.nixOptions,
           flake,
           inputs: this.flakeInputs,
-          message: this.commitMessage,
+          message: commitMessage,
           args: nixCommandArgs,
         }),
       );
