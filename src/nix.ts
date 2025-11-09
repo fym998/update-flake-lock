@@ -11,9 +11,10 @@ export function makeNixCommandArgs(
   // configured via `--option <alias name> <option value>`
   // (https://github.com/NixOS/nix/issues/10989).
   // So, we go the long way so that we can support versions both before and after Nix 2.23.0.
-  const lockfileSummaryFlags = commitMessage
-    ? ["--option", "commit-lockfile-summary", commitMessage]
-    : [];
+  const lockfileSummaryFlags =
+    commitMessage !== null
+      ? ["--option", "commit-lockfile-summary", commitMessage]
+      : [];
 
   return nixOptions
     .concat(["flake", "update"])
